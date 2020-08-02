@@ -12,7 +12,7 @@ jobs:
       - run:
           command: ls; cd deploy; ls; cd capistrano; ls
       - run:
-          command: bundle install
+          command: cd deploy/capistrano; bundle install
       # - run:
       #     name: install deps
       #     command: pip install -r requirements/dev.txt
