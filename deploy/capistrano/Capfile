@@ -36,3 +36,18 @@ install_plugin Capistrano::SCM::Git
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+
+namespace :deploy do
+  desc "flask server"
+  task :restart do
+    on roles(:all) do
+      puts "stop old flask server"
+      system("kill $(ps aux | grep 'flask run --host' | awk '{print $2}')")
+      system("sleep 1")
+      puts "start new flask server"
+      system("nohup python3 -m flask run --host=0.0.0.0 &")
+    end
+  end
+
+  after :finishing, :restart
+end

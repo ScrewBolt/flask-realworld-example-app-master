@@ -10,20 +10,14 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install bundler
           command: cd deploy/capistrano; gem install bundler
       - run:
+          name: Bundle Install
           command: cd deploy/capistrano; bundle install
       - run:
+          name: Deploy production
           command: cd deploy/capistrano; bundle exec cap production deploy
-
-      # - run:
-      #     name: install deps
-      #     command: pip install -r requirements/dev.txt
-
-      # - run:
-      #     name: run tests
-      #     command: flask test
-
 
 # version: 2
 
