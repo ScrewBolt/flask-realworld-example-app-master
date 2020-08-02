@@ -1,41 +1,64 @@
 version: 2
-
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - flask-test
-      - deploy-job:
-        - requires:
-          - flask-test
-
 jobs:
-  flask-test:
+  build:
     working_directory: /home/mo/circulate
     docker:
-      - image: python:3.6.0
+      - image: ruby:2.5.8
         environment:
           FLASK_APP: autoapp.py
           FLASK_DEBUG: 1
     steps:
       - checkout
       - run:
-          name: install deps
-          command: pip install -r requirements/dev.txt
+          command: ls; cd deploy; ls; cd capistrano; ls
+      - run:
+          command: bundle install
+      # - run:
+      #     name: install deps
+      #     command: pip install -r requirements/dev.txt
 
-      - run:
-          name: run tests
-          command: flask test
-  #  build and test jobs go here - not included for brevity
-  deploy-job:
-    docker:
-      - image: ruby:2.5.8
-    working_directory: /home/mo/circulate
-    steps:
-      - checkout
-      - run:
-          name: Bundle Install
-          command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle check || bundle install
-      - run:
-          name: Deploy if tests pass and branch is Master
-          command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle exec cap production deploy
+      # - run:
+      #     name: run tests
+      #     command: flask test
+
+
+# version: 2
+
+# workflows:
+#   version: 2
+#   build-deploy:
+#     jobs:
+#       - deploy-job:
+#         - requires:
+#           - flask-test
+
+# jobs:
+#   flask-test:
+#     working_directory: /home/mo/circulate
+#     docker:
+#       - image: python:3.6.0
+#         environment:
+#           FLASK_APP: autoapp.py
+#           FLASK_DEBUG: 1
+#     steps:
+#       - checkout
+#       - run:
+#           name: install deps
+#           command: pip install -r requirements/dev.txt
+
+#       - run:
+#           name: run tests
+#           command: flask test
+#   #  build and test jobs go here - not included for brevity
+#   deploy-job:
+#     docker:
+#       - image: ruby:2.5.8
+#     working_directory: /home/mo/circulate
+#     steps:
+#       - checkout
+#       - run:
+#           name: Bundle Install
+#           command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle check || bundle install
+#       - run:
+#           name: Deploy if tests pass and branch is Master
+#           command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle exec cap production deploy
