@@ -1,6 +1,13 @@
 version: 2
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - deploy-job
+
 jobs:
-  build:
+  flask-test:
     working_directory: /home/mo/circulate
     docker:
       - image: python:3.6.0
@@ -16,6 +23,7 @@ jobs:
       - run:
           name: run tests
           command: flask test
+  #  build and test jobs go here - not included for brevity
   deploy-job:
     docker:
       - image: ruby:2.5.8
