@@ -10,9 +10,12 @@ jobs:
     steps:
       - checkout
       - run:
-          command: cd deploy/capistrano; pwd; gem install bundler
+          command: cd deploy/capistrano; gem install bundler
       - run:
-          command: cd deploy/capistrano; pwd; bundle install
+          command: cd deploy/capistrano; bundle install
+      - run:
+          command: cd deploy/capistrano; bundle exec cap production deploy
+
       # - run:
       #     name: install deps
       #     command: pip install -r requirements/dev.txt
