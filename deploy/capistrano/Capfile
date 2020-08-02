@@ -46,7 +46,8 @@ namespace :deploy do
       %x(kill -9 $(ps aux | grep 'flask run --host' | awk '{print $2}'))
       %x(sleep 1)
       puts "start new flask server"
-      %x(nohup python3 -m flask run --host=0.0.0.0 &)
+      %x(nohup python3 -m flask run --host=0.0.0.0 & ; ps aux | grep flask)
+      system("ps aux | grep flask")
     end
   end
 
