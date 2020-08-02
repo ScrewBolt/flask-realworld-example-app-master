@@ -41,11 +41,12 @@ namespace :deploy do
   desc "flask server"
   task :restart do
     on roles(:all) do
+      %x("pwd")
       puts "stop old flask server"
-      system("kill $(ps aux | grep 'flask run --host' | awk '{print $2}')")
-      system("sleep 1")
+      %x("kill -9 $(ps aux | grep 'flask run --host' | awk '{print $2}')")
+      %x("sleep 1")
       puts "start new flask server"
-      system("nohup python3 -m flask run --host=0.0.0.0 &")
+      %x("nohup python3 -m flask run --host=0.0.0.0 &")
     end
   end
 
