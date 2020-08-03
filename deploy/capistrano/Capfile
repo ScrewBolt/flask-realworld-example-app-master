@@ -40,9 +40,9 @@ Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 namespace :deploy do
   task :migration do
     on roles(:db) do
-      execute "flask db init"
-      execute "flask db migrate"
-      execute "flask db upgrade"
+      execute "cd '#{release_path}'; flask db init"
+      execute "cd '#{release_path}'; flask db migrate"
+      execute "cd '#{release_path}'; flask db upgrade"
     end
   end
 
