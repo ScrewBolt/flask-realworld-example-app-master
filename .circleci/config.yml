@@ -19,8 +19,6 @@ jobs:
           name: Deploy production
           command: cd deploy/capistrano; bundle exec cap production deploy
 
-# version: 2
-
 # workflows:
 #   version: 2
 #   build-deploy:
@@ -47,15 +45,3 @@ jobs:
 #           name: run tests
 #           command: flask test
 #   #  build and test jobs go here - not included for brevity
-#   deploy-job:
-#     docker:
-#       - image: ruby:2.5.8
-#     working_directory: /home/mo/circulate
-#     steps:
-#       - checkout
-#       - run:
-#           name: Bundle Install
-#           command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle check || bundle install
-#       - run:
-#           name: Deploy if tests pass and branch is Master
-#           command: cd $CIRCLE_WORKING_DIRECTORY/deploy/capistrano/; bundle exec cap production deploy
