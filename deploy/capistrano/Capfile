@@ -46,6 +46,11 @@ namespace :deploy do
 
   task :migration do
     on roles(:db) do
+      puts "put FLASK_APP env"
+      execute "echo $FLASK_APP"
+      puts "after set"
+      execute "export FLASK_APP=#{release_path}/autoapp.py"
+      execute "echo $FLASK_APP"
       execute "cd '#{release_path}'; python3 -m flask db migrate"
     end
   end
