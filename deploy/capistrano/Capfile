@@ -43,16 +43,16 @@ namespace :deploy do
     on roles(:web) do
       puts "=============Custom restart=================="
       puts "run pwd"
-      execute "pwd"
+      execute "cd '#{release_path}'; pwd"
       puts "ls"
-      execute "ls"
+      execute "cd '#{release_path}'; ls"
       puts "ps aux"
       execute "ps aux | grep flask"
       puts "stop old flask server"
       execute "kill -9 $(ps aux | grep 'flask run --host' | awk '{print $2}')"
       execute "sleep 1"
       puts "start new flask server"
-      execute "nohup python3 -m flask run --host=0.0.0.0 &"
+      execute "cd '#{release_path}'; nohup python3 -m flask run --host=0.0.0.0 &"
       execute "ps aux | grep flask"
     end
   end
