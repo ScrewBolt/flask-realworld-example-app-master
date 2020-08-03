@@ -34,16 +34,16 @@ class ProdConfig(Config):
 
     ENV = 'prod'
     DEBUG = False
-    DB_NAME = 'prod.db'
-    # Put the db file in project root
-    DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
-    CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(10 ** 6)
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
-    #                                          'postgresql://localhost/flask')
-    #                                          #postgresql://DB_USER:PASSWORD@HOST/DATABASE
-    #                                          #postgresql://flaskuser:flaskuser@localhost/flask
+    # DB_NAME = 'prod.db'
+    # # Put the db file in project root
+    # DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
+    # CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
+    # JWT_ACCESS_TOKEN_EXPIRES = timedelta(10 ** 6)
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
+                                             'postgresql://flaskuser:flaskuser@localhost/flask')
+                                              #postgresql://DB_USER:PASSWORD@HOST/DATABASE
+
 
 
 class DevConfig(Config):
