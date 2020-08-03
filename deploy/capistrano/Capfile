@@ -38,7 +38,15 @@ install_plugin Capistrano::SCM::Git
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 
 namespace :deploy do
-  desc "flask server"
+  task :migration do
+    on roles(:db) do
+      execute "flask db init"
+      execute "flask db migrate"
+      execute "flask db upgrade"
+    end
+  end
+
+  desc "flask gunicorn server"
   task :restart do
     on roles(:web) do
       puts "stop flask gunicorn server"
@@ -49,5 +57,6 @@ namespace :deploy do
     end
   end
 
+  before :finishing: :migration
   after :finishing, :restart
 end
