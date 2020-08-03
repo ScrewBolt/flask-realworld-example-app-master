@@ -40,8 +40,14 @@ Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 namespace :deploy do
   desc "flask server"
   task :restart do
-    on roles(:all) do
+    on roles(:web) do
+      puts "=============Custom restart=================="
+      puts "run pwd"
       %x(pwd)
+      puts "ls"
+      %x(ls)
+      puts "ps aux"
+      %x(ps aux | grep flask)
       puts "stop old flask server"
       %x(kill -9 $(ps aux | grep 'flask run --host' | awk '{print $2}'))
       %x(sleep 1)
