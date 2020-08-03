@@ -46,9 +46,8 @@ namespace :deploy do
 
   task :migration do
     on roles(:db) do
-      execute "cd '#{release_path}'; flask db init"
-      execute "cd '#{release_path}'; flask db migrate"
-      execute "cd '#{release_path}'; flask db upgrade"
+      execute "cd '#{release_path}'; python3 -m flask db migrate"
+      execute "cd '#{release_path}'; python3 -m flask db upgrade"
     end
   end
 
@@ -63,7 +62,7 @@ namespace :deploy do
     end
   end
 
-  #before :finishing, :flask_build
+  before :finishing, :flask_build
   #before :finishing, :migration
   after :finishing, :restart
 end
