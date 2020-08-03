@@ -51,7 +51,7 @@ namespace :deploy do
       puts "after set"
       execute "export FLASK_APP=#{release_path}/autoapp.py"
       execute "echo $FLASK_APP"
-      execute "cd '#{release_path}'; python3 -m flask db migrate"
+      execute "cd '#{release_path}'; FLASK_APP=./autoapp.py python3 -m flask db migrate"
     end
   end
 
