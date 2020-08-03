@@ -63,7 +63,7 @@ namespace :deploy do
     end
   end
 
-  before :finishing, :flask_build
-  before :finishing, :migration
+  #before :finishing, :flask_build
+  #before :finishing, :migration
   after :finishing, :restart
 end
