@@ -41,11 +41,10 @@ namespace :deploy do
   desc "flask server"
   task :restart do
     on roles(:web) do
-      puts "=============Custom restart=================="
-      puts "stop old flask server"
+      puts "stop flask gunicorn server"
       execute "kill -9 $(ps aux | grep gunicorn | awk '{print $2}')"
       execute "sleep 1"
-      puts "start new flask server"
+      puts "start flask gunicorn server"
       execute "cd '#{release_path}';/home/ubuntu/.local/bin/gunicorn autoapp:app -b 0.0.0.0:5000 --reload --daemon"
     end
   end
