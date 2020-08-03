@@ -46,7 +46,7 @@ namespace :deploy do
       execute "kill -9 $(ps aux | grep gunicorn | awk '{print $2}')"
       execute "sleep 1"
       puts "start new flask server"
-      execute "cd '#{release_path}'; gunicorn --bind=0.0.0.0:5000 autoapp:app --daemon"
+      execute "cd '#{release_path}';/home/ubuntu/.local/bin/gunicorn autoapp:app -b 0.0.0.0:5000 --reload --daemon"
     end
   end
 
