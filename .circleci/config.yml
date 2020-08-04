@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  deploy:
     working_directory: /home/mo/circulate
     docker:
       - image: ruby:2.5.8
@@ -19,6 +19,11 @@ jobs:
           name: Deploy production
           command: cd deploy/capistrano; bundle exec cap production deploy
 
+workflows:
+    version: 2
+    test_and_deploy:
+      jobs:
+        - deploy
 # workflows:
 #   version: 2
 #   build-deploy:
