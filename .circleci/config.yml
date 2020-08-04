@@ -1,5 +1,21 @@
 version: 2
 jobs:
+  test:
+    working_directory: /home/mo/circulate
+    docker:
+      - image: python:3.6.0
+        environment:
+          FLASK_APP: autoapp.py
+          FLASK_DEBUG: 1
+    steps:
+      - checkout
+      - run:
+          name: install deps
+          command: pip install -r requirements/dev.txt
+
+      - run:
+          name: run tests
+          command: flask test
   deploy:
     working_directory: /home/mo/circulate
     docker:
@@ -23,6 +39,7 @@ workflows:
     version: 2
     test_and_deploy:
       jobs:
+        - test
         - deploy
 # workflows:
 #   version: 2
@@ -33,20 +50,20 @@ workflows:
 #           - flask-test
 
 # jobs:
-#   flask-test:
-#     working_directory: /home/mo/circulate
-#     docker:
-#       - image: python:3.6.0
-#         environment:
-#           FLASK_APP: autoapp.py
-#           FLASK_DEBUG: 1
-#     steps:
-#       - checkout
-#       - run:
-#           name: install deps
-#           command: pip install -r requirements/dev.txt
+  # flask-test:
+  #   working_directory: /home/mo/circulate
+  #   docker:
+  #     - image: python:3.6.0
+  #       environment:
+  #         FLASK_APP: autoapp.py
+  #         FLASK_DEBUG: 1
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: install deps
+  #         command: pip install -r requirements/dev.txt
 
-#       - run:
-#           name: run tests
-#           command: flask test
+  #     - run:
+  #         name: run tests
+  #         command: flask test
 #   #  build and test jobs go here - not included for brevity
