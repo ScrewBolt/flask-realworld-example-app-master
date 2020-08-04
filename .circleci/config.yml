@@ -40,7 +40,9 @@ workflows:
     test_and_deploy:
       jobs:
         - test
-        - deploy
+        - deploy:
+          - requires:
+            - test
 # workflows:
 #   version: 2
 #   build-deploy:
